@@ -18,6 +18,6 @@ build connection between admin page and home page
 
 ### 2017/06/09
 
-add/display categories
+add/delete/display categories
 
 
