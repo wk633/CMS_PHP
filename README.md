@@ -16,3 +16,8 @@ build post_tags search
 dynamical generate categories in sidebar
 build connection between admin page and home page
 
+### 2017/06/09
+
+add/display categories
+
+
