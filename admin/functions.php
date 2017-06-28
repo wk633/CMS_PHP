@@ -3,7 +3,7 @@
 function confirmQuerySuccess($query_result) {
     global $connection;
     if (!$query_result) {
-        die("QUERY FAILED " . mysqli_query($connection));
+        die("QUERY FAILED " . mysqli_error($connection));
     }
 }
 
