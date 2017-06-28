@@ -18,34 +18,25 @@
                         <small>Subheading</small>
                     </h1>
                     
-                    <table class='table table-hover table-bordered'>
-                        <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Author</th>
-                                <th>Title</th>
-                                <th>Category</th>
-                                <th>Status</th>
-                                <th>Image</th>
-                                <th>Tags</th>
-                                <th>Comments</th>
-                                <th>Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>10</td>
-                                <td>12</td>
-                                <td>21</td>
-                                <td>32</td>
-                                <td>321</td>
-                                <td>43</td>
-                                <td>432</td>
-                                <td>432</td>
-                                <td>432</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <?php
+                    if (isset($_GET['source'])) {
+                        $source = $_GET['source'];
+                    }else {
+                        $source = 'default';
+                    }
+                    
+                    switch($source) {
+                        case '':
+                            echo "test";
+                            break;
+                        case 'add':
+                            break;
+                        default:
+                            include './includes/view_all_posts.php';
+                            break;
+                    }
+                    
+                    ?>
                     
                     
                     
