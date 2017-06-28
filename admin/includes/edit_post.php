@@ -51,6 +51,7 @@ if (isset($_POST['update_post'])) {
     
     $query_update_result = mysqli_query($connection, $update_query);
     confirmQuerySuccess($query_update_result);
+    header("Location: posts.php");
 }
     
 ?>
@@ -74,7 +75,12 @@ if (isset($_POST['update_post'])) {
             confirmQuerySuccess($query_cat_result);
             
             while ($row=mysqli_fetch_assoc($query_cat_result)) {
-                echo "<option value={$row['cat_id']}>{$row['cat_title']}</option>";
+                if ($row['cat_id'] == $post_category_id) {
+                    echo "<option selected='selected' value={$row['cat_id']}>{$row['cat_title']}</option>";
+                }else {
+                    echo "<option value={$row['cat_id']}>{$row['cat_title']}</option>";
+                }
+                
             }
             ?>
         </select>
