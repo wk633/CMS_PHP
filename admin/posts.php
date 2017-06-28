@@ -26,8 +26,8 @@
                     }
                     
                     switch($source) {
-                        case '':
-                            echo "test";
+                        case 'edit_post':
+                            include './includes/edit_post.php';
                             break;
                         case 'add_post':
                             include './includes/add_post.php';
