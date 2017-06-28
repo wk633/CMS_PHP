@@ -6,7 +6,7 @@ if(isset($_GET['edit_id'])){
     $query_result = mysqli_query($connection, $query);
     confirmQuerySuccess($query_result);
     $row = mysqli_fetch_assoc($query_result);
-    
+    $post_id = $row['post_id'];
     $post_title = $row['post_title'];
     $post_category_id = $row['post_cat_id'];
     $post_author = $row['post_author'];
@@ -24,10 +24,30 @@ if (isset($_POST['update_post'])) {
     $post_tags = $_POST['post_tags'];
     $post_content = $_POST['post_content'];
     $post_status = $_POST['post_status'];
-    $post_image = $_POST['post_image'];
     
-    $update_query = "update posts set post_title = '{$post_title}', post_cat_id = {$post_category_id}, post_author = '{$post_author}', post_tags = '{$post_tags}', post_content = '{$post_content}', post_status = '{$post_status}' ";
-    $query .= "where post_id = {$post_id};";
+    $post_image = $_FILES['post_image']['name'];
+    $post_image_tmp = $_FILES['post_image']['tmp_name'];
+    
+    move_uploaded_file($post_image_tmp, "../images/$post_image");
+    
+    // deal with picture update problem
+    if (empty($post_image)) {
+        $query = "select * from posts where post_id = {$post_id}";
+        $query_select_image = mysqli_query($connection, $query);
+        $row = mysqli_fetch_assoc($query_select_image);
+        $post_image = $row['post_image'];
+    }
+    
+    $update_query = "update posts set ";
+    $update_query .= "post_title = '{$post_title}', ";
+    $update_query .= "post_cat_id = {$post_category_id}, ";
+    $update_query .= "post_date = now(), ";
+    $update_query .= "post_author = '{$post_author}', ";
+    $update_query .= "post_tags = '{$post_tags}', ";
+    $update_query .= "post_content = '{$post_content}', ";
+    $update_query .= "post_status = '{$post_status}', ";
+    $update_query .= "post_image = '{$post_image}' ";
+    $update_query .= "where post_id = {$post_id};";
     
     $query_update_result = mysqli_query($connection, $update_query);
     confirmQuerySuccess($query_update_result);
