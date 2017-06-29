@@ -19,5 +19,14 @@ build connection between admin page and home page
 ### 2017/06/09
 
 add/delete/display categories
+refactor categories.php
+
+
+### 2017/06/28
+display/add/delete posts
+
+
+### 2017/06/29
+fix index.php post link
 
 
