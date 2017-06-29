@@ -54,12 +54,13 @@
     
     <?php
     if (isset($_GET['delete'])) {
-        $post_id_delete = $_GET['delete'];
-        $query = "DELETE FROM posts WHERE post_id = {$post_id_delete}";
+        $comment_id_delete = $_GET['delete'];
+        $query = "DELETE FROM comments WHERE comment_id = {$comment_id_delete}";
         $delete_query = mysqli_query($connection, $query);
         confirmQuerySuccess($delete_query);
-        header("Location: posts.php");
+        header("Location: comments.php");
     }
+    
     ?>
 
 </tbody>
