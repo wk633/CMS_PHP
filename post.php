@@ -71,7 +71,20 @@
                 
                 <?php
                 if (isset($_POST['create_comment'])) {
-                    print_r($_POST);
+                    $post_id = $_GET['post_id'];
+                    $comment_author = $_POST['author'];
+                    $comment_email = $_POST['email'];
+                    $comment_content = $_POST['comment_content'];
+                    
+                    $query = "insert into comments (comment_post_id, comment_author, comment_email, comment_content, comment_status, comment_date) values ";
+                    $query .= "($post_id, '{$comment_author}', '{$comment_email}', '{$comment_content}', 'unapproved', now());";
+                    
+                    $query_submit_result = mysqli_query($connection, $query);
+                    if (!$query_submit_result) {
+                        die("QUERY FAILED " . mysqli_error($connection));
+                    }
+                    
+                    
                 }
                 ?>
                 

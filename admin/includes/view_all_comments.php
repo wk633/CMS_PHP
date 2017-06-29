@@ -35,13 +35,14 @@
         echo "<td>$comment_author</td>";
         echo "<td>$comment_content</td>";
         
-//        $query = "select * from categories where cat_id = {$post_cat_id};";
-//        $query_category_title = mysqli_query($connection, $query);
-//        $row = mysqli_fetch_assoc($query_category_title);
-        
         echo "<td>$comment_email</td>";
         echo "<td>{$comment_status}</td>";
-        echo "<td>xxxxxxxxx</td>";
+        
+        $query = "select * from posts where post_id = {$comment_post_id};";
+        $query_post_title = mysqli_query($connection, $query);
+        $row = mysqli_fetch_assoc($query_post_title);
+        
+        echo "<td>{$row['post_title']}</td>";
         echo "<td>$comment_date</td>";
         echo "<td><a href='comments.php?approve={$comment_id}'>Approve</a></td>";
         echo "<td><a href='comments.php?unapprove={$comment_id}'>Unapprove</></td>";
