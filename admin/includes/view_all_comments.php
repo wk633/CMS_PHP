@@ -42,7 +42,7 @@
         $query_post_title = mysqli_query($connection, $query);
         $row = mysqli_fetch_assoc($query_post_title);
         
-        echo "<td>{$row['post_title']}</td>";
+        echo "<td><a href='../post.php?post_id={$comment_post_id}'>{$row['post_title']}</a></td>";
         echo "<td>$comment_date</td>";
         echo "<td><a href='comments.php?approve={$comment_id}'>Approve</a></td>";
         echo "<td><a href='comments.php?unapprove={$comment_id}'>Unapprove</></td>";
