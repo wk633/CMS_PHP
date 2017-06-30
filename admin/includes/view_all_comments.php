@@ -53,6 +53,24 @@
     ?>
     
     <?php
+    if (isset($_GET['approve'])) {
+        $comment_id = $_GET['approve'];
+        $query = "update comments set comment_status = 'Approved' where comment_id = $comment_id";
+        $query_result = mysqli_query($connection, $query);
+        confirmQuerySuccess($query_result);
+        header("Location: comments.php");
+    }
+    
+    if (isset($_GET['unapprove'])) {
+        $comment_id = $_GET['unapprove'];
+        $query = "update comments set comment_status = 'Unapproved' where comment_id = $comment_id";
+        $query_result = mysqli_query($connection, $query);
+        confirmQuerySuccess($query_result);
+        header("Location: comments.php");
+    }
+    ?>
+    
+    <?php
     if (isset($_GET['delete'])) {
         $comment_id_delete = $_GET['delete'];
         $query = "DELETE FROM comments WHERE comment_id = {$comment_id_delete}";
