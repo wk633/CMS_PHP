@@ -15,6 +15,23 @@
 </div>
 
 
+<!-- Login -->
+<div class="well">
+    <h4>Login</h4>
+    <form method="post" action="includes/login.php">
+        <div class="form-group">
+            <input name='username' type="text" class="form-control" placeholder="Enter Username">
+        </div>
+        <div class="input-group">
+            <input name='password' type="password" class="form-control" placeholder="Enter Password">
+            <span class="input-group-btn"><button type="submit" name="login" class="btn btn-primary">Login</button></span>
+        </div>
+    </form>
+    <!-- /.input-group -->
+</div>
+
+
+
 <?php
 $query = "SELECT * FROM categories LIMIT 3;";
 $select_categories_sidebar = mysqli_query($connection, $query);
