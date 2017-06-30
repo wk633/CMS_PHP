@@ -21,8 +21,13 @@
                 </h1>
                 
                 <?php
-                $query = "SELECT * FROM posts";
+                $query = "SELECT * FROM posts where post_status = 'published'";
                 $select_all_posts = mysqli_query($connection, $query);
+                
+                if (mysqli_num_rows($select_all_posts)) {
+                    echo "<h3>No Posts</h3>";
+                }
+                
                 while($row = mysqli_fetch_assoc($select_all_posts)) {
                     $post_id = $row['post_id'];
                     $post_title = $row['post_title'];

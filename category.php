@@ -24,7 +24,7 @@
                 if (isset($_GET['category'])) {
                     $post_cat_id = $_GET['category'];
                 }
-                $query = "SELECT * FROM posts where post_cat_id=$post_cat_id";
+                $query = "SELECT * FROM posts where post_cat_id=$post_cat_id and post_status = 'published'";
                 $select_all_posts = mysqli_query($connection, $query);
                 if (mysqli_num_rows($select_all_posts) == 0) {
                     echo "<h3>No Result</h3>";
