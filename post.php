@@ -1,4 +1,4 @@
-    <?php
+<?php
     include "includes/db.php";
     ?>
     <?php 
@@ -8,7 +8,7 @@
     <!-- Navigation -->
     <?php include "includes/navigation.php"; ?>
 
-   
+
     <!-- Page Content -->
     <div class="container">
 
@@ -16,7 +16,7 @@
 
             <!-- Blog Post Content Column -->
             <div class="col-lg-8">
-            <?php
+                <?php
             if(isset($_GET['post_id'])) {
                 $post_id = $_GET['post_id'];
                 $query = "SELECT * FROM posts where post_id=$post_id";
@@ -35,41 +35,50 @@
                     
             }    
             ?>
-               
-               
-                <!-- Blog Post -->
 
-                <!-- Title -->
-                <h1><?php echo $post_title;?></h1>
 
-                <!-- Author -->
-                <p class="lead">
-                    by <a href="#"><?php echo $post_author;?></a>
-                </p>
+                    <!-- Blog Post -->
 
-                <hr>
+                    <!-- Title -->
+                    <h1>
+                        <?php echo $post_title;?>
+                    </h1>
 
-                <!-- Date/Time -->
-                <p><span class="glyphicon glyphicon-time"></span> Posted on <?php echo $post_date;?></p>
+                    <!-- Author -->
+                    <p class="lead">
+                        by
+                        <a href="#">
+                            <?php echo $post_author;?>
+                        </a>
+                    </p>
 
-                <hr>
+                    <hr>
 
-                <!-- Preview Image -->
-                <img class="img-responsive" src="./images/<?php echo $post_image;?>" alt="">
+                    <!-- Date/Time -->
+                    <p><span class="glyphicon glyphicon-time"></span> Posted on
+                        <?php echo $post_date;?>
+                    </p>
 
-                <hr>
+                    <hr>
 
-                <!-- Post Content -->
-                <p class="lead"></p>
-                <p><?php echo $post_content;?></p>
-                
+                    <!-- Preview Image -->
+                    <img class="img-responsive" src="./images/<?php echo $post_image;?>" alt="">
 
-                <hr>
+                    <hr>
 
-                <!-- Blog Comments -->
-                
-                
-                <?php
+                    <!-- Post Content -->
+                    <p class="lead"></p>
+                    <p>
+                        <?php echo $post_content;?>
+                    </p>
+
+
+                    <hr>
+
+                    <!-- Blog Comments -->
+
+
+                    <?php
                 if (isset($_POST['create_comment'])) {
                     $post_id = $_GET['post_id'];
                     $comment_author = $_POST['author'];
@@ -87,61 +96,80 @@
                     
                 }
                 ?>
-                
-                
-                
-                <!-- Comments Form -->
-                <div class="well">
-                    <h4>Leave a Comment:</h4>
-                    <form role="form" action="" method="post">
-                       
-                        <div class="form-group">
-                           <label for="author">Author</label>
-                            <input type="text" name="author" class="form-control" name="comment_author">
+
+
+
+                        <!-- Comments Form -->
+                        <div class="well">
+                            <h4>Leave a Comment:</h4>
+                            <form role="form" action="" method="post">
+
+                                <div class="form-group">
+                                    <label for="author">Author</label>
+                                    <input type="text" name="author" class="form-control" name="comment_author">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" name="email" class="form-control" name="comment_email">
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="content">Comment</label>
+                                    <textarea name="comment_content" class="form-control" rows="3"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary" name="create_comment">Submit</button>
+                            </form>
                         </div>
+
+                        <hr>
+
+                        <!-- Posted Comments -->
+
+                        <?php
+                        $query = "select * from comments where comment_post_id = {$post_id} ";
+                        $query .= "AND comment_status='Approved'";
+                        $query .= "order by comment_id desc";
+
+                        $query_comment_result = mysqli_query($connection, $query);
+                        if(!$query_comment_result) {
+                            die("QUERY FAILED " . mysqli_error($connection));
+                        }
+                        while($row = mysqli_fetch_assoc($query_comment_result)) {
+                            $comment_date = $row['comment_date'];
+                            $comment_content = $row['comment_content'];
+                            $comment_author = $row['comment_author'];
                         
-                        <div class="form-group">
-                           <label for="email">Email</label>
-                            <input type="email" name="email" class="form-control" name="comment_email">
-                        </div>
-                        
-                        
-                        <div class="form-group">
-                           <label for="content">Comment</label>
-                            <textarea name="comment_content" class="form-control" rows="3"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary" name="create_comment">Submit</button>
-                    </form>
-                </div>
 
-                <hr>
+                        ?>
 
-                <!-- Posted Comments -->
+                            <!-- Comment -->
+                            <div class="media" style="margin-bottom: 10px">
+                                <a class="pull-left" href="#">
+                                    <img class="media-object" src="http://placehold.it/64x64" alt="">
+                                </a>
+                                <div class="media-body">
+                                    <h4 class="media-heading"><?php echo $comment_author; ?>
+                                        <small><?php echo $comment_date;?></small>
+                                    </h4>
+                                    <?php echo $comment_content;?>
+                                </div>
+                            </div>
+                            
+                        <?php } ?>
 
-                <!-- Comment -->
-                <div class="media">
-                    <a class="pull-left" href="#">
-                        <img class="media-object" src="http://placehold.it/64x64" alt="">
-                    </a>
-                    <div class="media-body">
-                        <h4 class="media-heading">Start Bootstrap
-                            <small>August 25, 2014 at 9:30 PM</small>
-                        </h4>
-                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                    </div>
-                </div>
 
-                
 
             </div>
 
             <!-- Blog Sidebar Widgets Column -->
             <div class="col-md-4">
 
-               <?php include "includes/sidebar.php"; ?>
+                <?php include "includes/sidebar.php"; ?>
 
             </div>
-            
+
         </div>
         <!-- /.row -->
 
@@ -160,6 +188,6 @@
     </div>
     <!-- /.container -->
 
-   <?php 
+    <?php 
     include "includes/footer.php"; 
     ?>
