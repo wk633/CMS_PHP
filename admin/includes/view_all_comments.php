@@ -47,7 +47,7 @@
         echo "<td><a href='comments.php?approve={$comment_id}'>Approve</a></td>";
         echo "<td><a href='comments.php?unapprove={$comment_id}'>Unapprove</></td>";
         
-        echo "<td><a href='comments.php?delete={$comment_id}'>Delete</a></td>";
+        echo "<td><a href='comments.php?delete={$comment_id}&post_id={$comment_post_id}'>Delete</a></td>";
         echo "</tr>";
     }
     ?>
@@ -71,13 +71,23 @@
     ?>
     
     <?php
+    
+    
+    
     if (isset($_GET['delete'])) {
+        $post_id = $_GET['post_id'];
         $comment_id_delete = $_GET['delete'];
         $query = "DELETE FROM comments WHERE comment_id = {$comment_id_delete}";
         $delete_query = mysqli_query($connection, $query);
         confirmQuerySuccess($delete_query);
+        $query = "update posts set post_comment_count = post_comment_count - 1 where post_id = $post_id";
+        $update_query = mysqli_query($connection, $query);
+        confirmQuerySuccess($update_query);
+        
         header("Location: comments.php");
     }
+    
+    
     
     ?>
 
