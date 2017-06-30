@@ -33,19 +33,19 @@
         echo "<td>$user_lastname</td>";
         echo "<td>$user_email</td>";
         echo "<td>$user_role</td>";
-        echo "<td><a href='posts.php?delete='>Delete</a></td>";
-        echo "<td><a href='posts.php?source=edit_post&edit_id='>Edit</></td>";
+        echo "<td><a href='users.php?delete={$user_id}'>Delete</a></td>";
+        echo "<td><a href='users.php?source=edit_user&user_id={$user_id}'>Edit</></td>";
         echo "</tr>";
     }
     ?>
     
     <?php
     if (isset($_GET['delete'])) {
-        $post_id_delete = $_GET['delete'];
-        $query = "DELETE FROM posts WHERE post_id = {$post_id_delete}";
+        $user_id_delete = $_GET['delete'];
+        $query = "DELETE FROM users WHERE user_id = {$user_id_delete}";
         $delete_query = mysqli_query($connection, $query);
         confirmQuerySuccess($delete_query);
-        header("Location: posts.php");
+        header("Location: users.php");
     }
     ?>
 
