@@ -34,6 +34,7 @@ if (isset($_POST['login'])) {
         $_SESSION['firstname'] = $db_firstname;
         $_SESSION['lastname'] = $db_lastname;
         $_SESSION['role'] = $db_user_role;
+        $_SESSION['user_id'] = $db_id;
         
         header('Location: ../admin');
     }else {
