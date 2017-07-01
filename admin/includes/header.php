@@ -8,6 +8,7 @@ include "../includes/db.php"; ?>
 
 
 <?php
+//print_r($_SESSION);
 if (isset($_SESSION['role'])) {
     if ($_SESSION['role'] == 'subscriber') {
         header("Location: ../index.php");

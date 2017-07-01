@@ -26,20 +26,24 @@ if (isset($_POST['login'])) {
         $db_lastname = $row['user_lastname'];
         $db_password = $row['user_password'];
         $db_user_role = $row['user_role'];
+        $db_user_salt = $row['randSalt'];
+        
+        $crypt_password = crypt($password, $db_password);
+        
+        if ($username === $db_username &&  $crypt_password === $db_password) {
+            $_SESSION['username'] = $db_username;
+            $_SESSION['firstname'] = $db_firstname;
+            $_SESSION['lastname'] = $db_lastname;
+            $_SESSION['role'] = $db_user_role;
+            $_SESSION['user_id'] = $db_id;
+            header('Location: ../admin');
+            return;
+        }
         
     }
+    header('Location: ../index.php');
     
-   if ($username === $db_username &&  $password === $db_password) {
-        $_SESSION['username'] = $db_username;
-        $_SESSION['firstname'] = $db_firstname;
-        $_SESSION['lastname'] = $db_lastname;
-        $_SESSION['role'] = $db_user_role;
-        $_SESSION['user_id'] = $db_id;
-        
-        header('Location: ../admin');
-    }else {
-        header('Location: ../index.php');
-    }
+   
     
 }
 ?>
