@@ -33,7 +33,7 @@
                                 <?php
                                 $query = "select count(*) as posts_num from posts;";
                                 $select_post_count = mysqli_query($connection, $query);
-                                $post_counts = mysqli_fetch_assoc($select_post_count)['posts_num'];
+                                $post_counts = (int) mysqli_fetch_assoc($select_post_count)['posts_num'];
                                     
                                 ?>
                                 
@@ -64,7 +64,7 @@
                                 <?php
                                 $query = "select count(*) as comments_num from comments;";
                                 $select_comment_count = mysqli_query($connection, $query);
-                                $comment_counts = mysqli_fetch_assoc($select_comment_count)['comments_num'];
+                                $comment_counts = (int) mysqli_fetch_assoc($select_comment_count)['comments_num'];
                                     
                                 ?>
                                 
@@ -95,7 +95,7 @@
                                 <?php
                                 $query = "select count(*) as users_num from users;";
                                 $select_users_count = mysqli_query($connection, $query);
-                                $users_count = mysqli_fetch_assoc($select_users_count)['users_num'];
+                                $users_count = (int) mysqli_fetch_assoc($select_users_count)['users_num'];
                                     
                                 ?>
                                 
@@ -126,7 +126,7 @@
                                    <?php
                                     $query = "select count(*) as categories_num from categories;";
                                     $select_categories_count = mysqli_query($connection, $query);
-                                    $categories_count = mysqli_fetch_assoc($select_categories_count)['categories_num'];
+                                    $categories_count = (int) mysqli_fetch_assoc($select_categories_count)['categories_num'];
 
                                     ?>
                                    
@@ -145,6 +145,63 @@
                     </div>
                 </div>
             </div>
+            
+            <div class="row">
+                <div id="columnchart_material" style="width: auto; height: 500px;"></div>
+            </div>
+            
+            <?php
+            $query = "select count(*) as draft_num from posts where post_status = 'draft';";
+            $select_categories_count = mysqli_query($connection, $query);
+            $draft_counts = (int) mysqli_fetch_assoc($select_categories_count)['draft_num']; 
+            
+            $query = "select count(*) as comment_num from comments where comment_status = 'unapproved';";
+            $select_comment_unapproved_count = mysqli_query($connection, $query);
+            $comment_unapproved_counts =(int) mysqli_fetch_assoc($select_comment_unapproved_count)['comment_num']; 
+            
+            $query = "select count(*) as admin_num from users where user_role = 'admin';";
+            $select_admin_count = mysqli_query($connection, $query);
+            $admin_count = (int) mysqli_fetch_assoc($select_admin_count)['admin_num'];
+            
+            ?>
+            
+            <?php
+             $element_text = ['Active Posts', 'Draft', 'Categories', 'Users', 'Admin', 'Comments', 'Comments_unapproved'];
+             $element_count = [$post_counts, $draft_counts, $categories_count, $users_count, $admin_count, $comment_counts, $comment_unapproved_counts];
+            print_r($element_count);
+            
+
+
+                              
+
+            ?>
+            <script type="text/javascript">
+              google.charts.load('current', {'packages':['bar']});
+              google.charts.setOnLoadCallback(drawChart);
+
+              function drawChart() {
+                var data = google.visualization.arrayToDataTable([
+                   ['Date', 'Count'],
+                   <?php
+                    for ($i = 0; $i < 7; $i++) {
+                        echo "['{$element_text[$i]}'" . ", $element_count[$i] ], ";
+                    } 
+                    ?>
+                ]);
+
+                var options = {
+                  chart: {
+                    title: '',
+                    subtitle: '',
+                  }
+                };
+
+                var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+                chart.draw(data, google.charts.Bar.convertOptions(options));
+              }
+            </script>
+            
             <!-- /.row -->
 
         </div>
