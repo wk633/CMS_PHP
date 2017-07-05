@@ -85,21 +85,24 @@
                     $comment_email = $_POST['email'];
                     $comment_content = $_POST['comment_content'];
                     
-                    $query = "insert into comments (comment_post_id, comment_author, comment_email, comment_content, comment_status, comment_date) values ";
-                    $query .= "($post_id, '{$comment_author}', '{$comment_email}', '{$comment_content}', 'unapproved', now());";
-                    
-                    $query_submit_result = mysqli_query($connection, $query);
-                    if (!$query_submit_result) {
-                        die("QUERY FAILED " . mysqli_error($connection));
+                    if (!empty($comment_author) && !empty($comment_email) && !empty($comment_content)) {
+                        $query = "insert into comments (comment_post_id, comment_author, comment_email, comment_content, comment_status, comment_date) values ";
+                        $query .= "($post_id, '{$comment_author}', '{$comment_email}', '{$comment_content}', 'unapproved', now());";
+
+                        $query_submit_result = mysqli_query($connection, $query);
+                        if (!$query_submit_result) {
+                            die("QUERY FAILED " . mysqli_error($connection));
+                        }
+
+                        $query = "update posts set post_comment_count = post_comment_count + 1 ";
+                        $query .= "where post_id = $post_id";
+                        $query_update_result = mysqli_query($connection, $query);
+                        if (!$query_update_result) {
+                            die("QUERY FAILED " . mysqli_error($connection));
+                        }
+                    }else {
+                        echo "<script>alert('Fields cannot be empty');</script>";
                     }
-                    
-                    $query = "update posts set post_comment_count = post_comment_count + 1 ";
-                    $query .= "where post_id = $post_id";
-                    $query_update_result = mysqli_query($connection, $query);
-                    if (!$query_update_result) {
-                        die("QUERY FAILED " . mysqli_error($connection));
-                    }
-                    
                 }
                 ?>
 
