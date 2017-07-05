@@ -151,6 +151,10 @@
             </div>
             
             <?php
+            $query = "select count(*) as published_num from posts where post_status = 'published';";
+            $select_posts_count = mysqli_query($connection, $query);
+            $published_counts = (int) mysqli_fetch_assoc($select_posts_count)['published_num']; 
+            
             $query = "select count(*) as draft_num from posts where post_status = 'draft';";
             $select_categories_count = mysqli_query($connection, $query);
             $draft_counts = (int) mysqli_fetch_assoc($select_categories_count)['draft_num']; 
@@ -166,8 +170,8 @@
             ?>
             
             <?php
-             $element_text = ['Active Posts', 'Draft', 'Categories', 'Users', 'Admin', 'Comments', 'Comments_unapproved'];
-             $element_count = [$post_counts, $draft_counts, $categories_count, $users_count, $admin_count, $comment_counts, $comment_unapproved_counts];
+             $element_text = ['All Posts','Published', 'Draft', 'Categories', 'Users', 'Admin', 'Comments', 'unapproved'];
+             $element_count = [$post_counts, $published_counts, $draft_counts, $categories_count, $users_count, $admin_count, $comment_counts, $comment_unapproved_counts];
             print_r($element_count);
             
 
@@ -183,7 +187,7 @@
                 var data = google.visualization.arrayToDataTable([
                    ['Date', 'Count'],
                    <?php
-                    for ($i = 0; $i < 7; $i++) {
+                    for ($i = 0; $i < 8; $i++) {
                         echo "['{$element_text[$i]}'" . ", $element_count[$i] ], ";
                     } 
                     ?>
