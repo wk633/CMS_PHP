@@ -47,7 +47,7 @@
                 </p>
                 <p><span class="glyphicon glyphicon-time"></span> Posted on <?php echo $post_date; ?></p>
                 <hr>
-                <img class="img-responsive" src="images/<?php echo $post_image; ?>" alt="">
+                <a href="post.php?post_id=<?php echo $post_id;?>"><img class="img-responsive" src="images/<?php echo $post_image; ?>" alt=""></a>
                 <hr>
                 <p><?php echo $post_content; ?></p>
                 <a class="btn btn-primary" href="post.php?post_id=<?php echo $post_id;?>">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
@@ -89,7 +89,7 @@
         <footer>
             <div class="row">
                 <div class="col-lg-12">
-                    <p>Copyright &copy; Your Website 2014</p>
+                    <p>Copyright &copy; My Website 2017</p>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
