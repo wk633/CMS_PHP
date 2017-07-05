@@ -79,7 +79,7 @@ if (isset($_POST['checkBoxArray'])) {
         echo "<td><input type='checkbox' name='checkBoxArray[]' class='checkBoxes' value='{$post_id}'></td>";
         echo "<td>{$post_id}</td>";
         echo "<td>{$post_author}</td>";
-        echo "<td>{$post_title}</td>";
+        echo "<td><a href='../post.php?post_id={$post_id}'>{$post_title}</a></td>";
         
         $query = "select * from categories where cat_id = {$post_cat_id};";
         $query_category_title = mysqli_query($connection, $query);
