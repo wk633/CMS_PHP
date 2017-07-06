@@ -13,6 +13,7 @@ if(isset($_GET['user_id'])){
     $user_role = $row['user_role'];
     $user_email = $row['user_email'];
     $user_password = $row['user_password'];
+    $randSalt = $row['randSalt'];
 }
 
 if (isset($_POST['update_user'])) {
@@ -23,8 +24,7 @@ if (isset($_POST['update_user'])) {
     $user_name = $_POST['user_name'];
     $user_role = $_POST['user_role'];
     $user_email = $_POST['user_email'];
-    $user_password = $_POST['user_password'];
-    
+    $user_password = crypt($_POST['user_password'], $randSalt);
     
     $update_query = "update users set ";
     $update_query .= "user_firstname = '{$user_firstname}', ";
