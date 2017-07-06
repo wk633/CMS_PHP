@@ -10,30 +10,25 @@ if (isset($_POST['submit'])) {
     $user_name = mysqli_real_escape_string($connection, $user_name);
     $user_email = mysqli_real_escape_string($connection, $user_email);
     $user_password = mysqli_real_escape_string($connection, $user_password);
+    if (empty($user_name) || empty($user_email) || empty($user_password)) {
+        echo "<script>alert('Fields cannot be empty')</script>";
+//        header('Location: registration.php');
+    }else {
+        $message = "Your Registration has been submitted";
     
-    
-    $message = "Your Registration has been submitted";
-    
-    
-    
-    $salt = '$2y$10$iusesomecrazystrings22';
-    $user_password = crypt($user_password, $salt);
-    
-    $query = "INSERT INTO users (user_name, user_email, user_password, user_role) ";
-    $query .= "values('{$user_name}', '{$user_email}', '{$user_password}', 'subscriber');";
-    
-    $register_query = mysqli_query($connection, $query);
-    
-    
-    
-    
-    if (!empty($user_name) && !empty($user_email) && !empty($user_password)) {
-        
+        $salt = '$2y$10$iusesomecrazystrings22';
+        $user_password = crypt($user_password, $salt);
+
+        $query = "INSERT INTO users (user_name, user_email, user_password, user_role) ";
+        $query .= "values('{$user_name}', '{$user_email}', '{$user_password}', 'subscriber');";
+
+        $register_query = mysqli_query($connection, $query);
+        if (!$register_query){
+            die('Query Failed ' . mysqli_error($connection));
+        }
+        header("Location: index.php");
     }
-    
-    
-    
-    
+  
 }
 
 ?>
@@ -83,7 +78,7 @@ if (isset($_POST['submit'])) {
         <footer>
             <div class="row">
                 <div class="col-lg-12">
-                    <p>Copyright &copy; Your Website 2014</p>
+                    <p>Copyright &copy; Your Website 2017</p>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
