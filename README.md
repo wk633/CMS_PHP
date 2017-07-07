@@ -3,6 +3,8 @@ Content manage system
 
 This repo is to record my study on a php project, a CMS system.
 
+Demo: http://sample-env.z2u6pzywtc.us-west-1.elasticbeanstalk.com/CMS_PHP/
+
 ## Develop Log
 
 ### 2017/06/06
