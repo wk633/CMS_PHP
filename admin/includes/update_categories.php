@@ -33,7 +33,7 @@ if (isset($_GET['edit'])) {
 
  <?php
 if (isset($_POST['edit'])) {
-    $new_cat_title = $_POST['cat_title'];
+    $new_cat_title = escape($_POST['cat_title']);
     $query = "UPDATE categories SET cat_title = '{$new_cat_title}' WHERE cat_id = {$id}";
 
     $edit_result = mysqli_query($connection, $query);
