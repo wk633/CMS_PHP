@@ -16,8 +16,8 @@ if (isset($_POST['submit'])) {
     }else {
         $message = "Your Registration has been submitted";
     
-        $salt = '$2y$10$iusesomecrazystrings22';
-        $user_password = crypt($user_password, $salt);
+        $user_password = password_hash($user_password, PASSWORD_BCRYPT, array('cost' => 12));
+        
 
         $query = "INSERT INTO users (user_name, user_email, user_password, user_role) ";
         $query .= "values('{$user_name}', '{$user_email}', '{$user_password}', 'subscriber');";
