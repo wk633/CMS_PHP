@@ -27,6 +27,7 @@
             <span class="input-group-btn"><button type="submit" name="login" class="btn btn-primary">Login</button></span>
         </div>
     </form>
+    <div style="margin-top: 12px;">New User? <a href="registration.php">Click here to sign up</a></div>
     <!-- /.input-group -->
 </div>
 
